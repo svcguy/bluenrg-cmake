@@ -1,0 +1,18 @@
+{
+    "configurations": [
+    {
+        "type": "cortex-debug",
+        "request": "launch",
+        "name": "Debug with JLink",
+        "cwd": "${workspaceFolder}",
+        "executable": "./build/bluenrg-cmake.elf",
+        "servertype": "jlink",
+        "serverpath": "/Applications/SEGGER/JLink/JLinkGDBServerCLExe",
+        "device": "BlueNRG2",
+        "interface": "swd",
+        "runToEntryPoint": "main",
+        "showDevDebugOutput": "none",
+        "armToolchainPath": "/Applications/ARM/bin",
+    }
+    ]
+}

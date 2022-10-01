@@ -1,0 +1,8 @@
+{
+    "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+    "cortex-debug.armToolchainPath.osx": "/Applications/ARM/bin",
+    "files.associations": {
+        "bluenrg_x_device.h": "c",
+        "clock.h": "c"
+    }
+}
