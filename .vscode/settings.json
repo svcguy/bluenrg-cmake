@@ -3,6 +3,7 @@
     "cortex-debug.armToolchainPath.osx": "/Applications/ARM/bin",
     "files.associations": {
         "bluenrg_x_device.h": "c",
-        "clock.h": "c"
+        "clock.h": "c",
+        "bluenrg1_conf.h": "c"
     }
 }

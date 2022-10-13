@@ -13,12 +13,14 @@
 #include "bluenrg_x_device.h"
 #include "BlueNRG1_conf.h"
 #include "clock.h"
+
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/  
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
+void GPIO_Configuration(void);
 
 /**
   * @brief  Main program.
@@ -27,17 +29,14 @@
   */
 int main(void)
 {
+  // Low level system init
   SystemInit();
+
+  // Peripheral init
+  GPIO_Configuration();
+
+  // HAL init
   Clock_Init();
-
-  SysCtrl_PeripheralClockCmd(CLOCK_PERIPH_GPIO, ENABLE);
-
-  GPIO_InitType led;
-  led.GPIO_Mode = GPIO_Output;
-  led.GPIO_Pull = DISABLE;
-  led.GPIO_HighPwr = DISABLE;
-  led.GPIO_Pin = GPIO_Pin_14;
-  GPIO_Init(&led);
   
   while(1)
   {
@@ -62,5 +61,20 @@ void assert_failed(uint8_t* file, uint32_t line)
   }
 }
 #endif
+
+void GPIO_Configuration(void)
+{
+  SysCtrl_PeripheralClockCmd(CLOCK_PERIPH_GPIO, ENABLE);
+
+  GPIO_InitType       gpio_init;
+
+  // DIO14 LED
+  gpio_init.GPIO_Mode     = GPIO_Output;
+  gpio_init.GPIO_Pull     = DISABLE;
+  gpio_init.GPIO_HighPwr  = DISABLE;
+  gpio_init.GPIO_Pin      = GPIO_Pin_14;
+
+  GPIO_Init(&gpio_init);
+}
 
 /*** EOF ***/

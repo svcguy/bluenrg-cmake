@@ -13,6 +13,7 @@
         "runToEntryPoint": "main",
         "showDevDebugOutput": "none",
         "armToolchainPath": "/Applications/ARM/bin",
+        "svdFile": "${workspaceRoot}/svd/BlueNRG2.svd",
     }
     ]
 }
