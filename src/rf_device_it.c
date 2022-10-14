@@ -42,7 +42,8 @@ void HardFault_IRQHandler(void)
   */
 void SysTick_IRQHandler(void)
 {
-
+  HAL_IncTick();
+  HAL_SYSTICK_IRQHandler();
 }
 
 /******************************************************************************/

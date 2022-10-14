@@ -18,14 +18,7 @@ extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
-#include "rf_driver_ll_bus.h"
-#include "rf_driver_ll_rcc.h"
-#include "rf_driver_ll_system.h"
-#include "rf_driver_ll_utils.h"
-#include "rf_driver_ll_gpio.h"
-#if defined(USE_FULL_ASSERT)
-#include "rf_driver_assert.h"
-#endif /* USE_FULL_ASSERT */
+#include "rf_driver_hal.h"
 /* Private includes ----------------------------------------------------------*/
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/

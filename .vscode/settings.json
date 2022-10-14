@@ -7,6 +7,8 @@
         "bluenrg1_conf.h": "c",
         "system_bluenrg_lp.h": "c",
         "bluenrg_lpx.h": "c",
-        "rf_driver_ll_gpio.h": "c"
+        "rf_driver_ll_gpio.h": "c",
+        "rf_driver_hal.h": "c",
+        "rf_device_hal_conf.h": "c"
     }
 }

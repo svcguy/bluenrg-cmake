@@ -31,26 +31,24 @@ int main(void)
     Error_Handler();
   }
 
-  NVIC_SetPriority(SysTick_IRQn, IRQ_HIGH_PRIORITY);
-  LL_Init1msTick(SystemCoreClock);
-
-  LL_GPIO_InitTypeDef led = {0};
-
-  led.Pin         = LL_GPIO_PIN_8;
-  led.Mode        = LL_GPIO_MODE_OUTPUT;
-  led.Speed       = LL_GPIO_SPEED_FREQ_LOW;
-  led.OutputType  = LL_GPIO_OUTPUT_PUSHPULL;
-  led.Pull        = LL_GPIO_PULL_NO;
-  
-  if(LL_GPIO_Init(GPIOB, &led) != SUCCESS)
+  if(HAL_Init() != HAL_OK)
   {
     Error_Handler();
   }
 
+  GPIO_InitTypeDef led = {0};
+
+  led.Pin     = GPIO_PIN_6;
+  led.Mode    = GPIO_MODE_OUTPUT_PP;
+  led.Speed   = GPIO_SPEED_FREQ_LOW;
+  led.Pull    = GPIO_NOPULL;
+
+  HAL_GPIO_Init(GPIOA, &led);
+
   while(1)
   {
-    LL_GPIO_TogglePin(GPIOB, LL_GPIO_PIN_8);
-    LL_mDelay(500);
+    HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_6);
+    HAL_Delay(500);
   }
 }
 
