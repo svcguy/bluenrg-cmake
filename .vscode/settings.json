@@ -4,6 +4,9 @@
     "files.associations": {
         "bluenrg_x_device.h": "c",
         "clock.h": "c",
-        "bluenrg1_conf.h": "c"
+        "bluenrg1_conf.h": "c",
+        "system_bluenrg_lp.h": "c",
+        "bluenrg_lpx.h": "c",
+        "rf_driver_ll_gpio.h": "c"
     }
 }

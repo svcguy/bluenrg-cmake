@@ -36,6 +36,7 @@ extern int __io_getchar(void) __attribute__((weak));
     register char * stack_ptr asm("sp");
 #endif
 
+#if !defined(CONFIG_DEVICE_BLUENRG_LP) && !defined(CONFIG_DEVICE_BLUENRG_LPS)
 caddr_t _sbrk(int incr)
 {
 	static char end asm("end");
@@ -71,6 +72,7 @@ caddr_t _sbrk(int incr)
 
 	return (caddr_t) prev_heap_end;
 }
+#endif /*defined(CONFIG_BLUENRG_LP(S))*/
 
 /*
  * _gettimeofday primitive (Stub function)

@@ -10,9 +10,7 @@
  */
 
 /* Includes ------------------------------------------------------------------*/
-#include "bluenrg_x_device.h"
-#include "BlueNRG1_conf.h"
-#include "clock.h"
+#include "main.h"
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -20,7 +18,6 @@
 /* Private variables ---------------------------------------------------------*/  
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
-void GPIO_Configuration(void);
 
 /**
   * @brief  Main program.
@@ -29,19 +26,44 @@ void GPIO_Configuration(void);
   */
 int main(void)
 {
-  // Low level system init
-  SystemInit();
+  if(SystemInit(SYSCLK_64M, RADIO_SYSCLK_NONE) != SUCCESS)
+  {
+    Error_Handler();
+  }
 
-  // Peripheral init
-  GPIO_Configuration();
+  NVIC_SetPriority(SysTick_IRQn, IRQ_HIGH_PRIORITY);
+  LL_Init1msTick(SystemCoreClock);
 
-  // HAL init
-  Clock_Init();
+  LL_GPIO_InitTypeDef led = {0};
+
+  led.Pin         = LL_GPIO_PIN_8;
+  led.Mode        = LL_GPIO_MODE_OUTPUT;
+  led.Speed       = LL_GPIO_SPEED_FREQ_LOW;
+  led.OutputType  = LL_GPIO_OUTPUT_PUSHPULL;
+  led.Pull        = LL_GPIO_PULL_NO;
   
+  if(LL_GPIO_Init(GPIOB, &led) != SUCCESS)
+  {
+    Error_Handler();
+  }
+
   while(1)
   {
-    GPIO_ToggleBits(GPIO_Pin_14);
-    Clock_Wait(500);
+    LL_GPIO_TogglePin(GPIOB, LL_GPIO_PIN_8);
+    LL_mDelay(500);
+  }
+}
+
+/**
+  * @brief  This function is executed in case of error occurrence.
+  * @retval None
+  */
+void Error_Handler(void)
+{
+  __BKPT(0);
+
+  while(1) 
+  {
   }
 }
 
@@ -61,20 +83,5 @@ void assert_failed(uint8_t* file, uint32_t line)
   }
 }
 #endif
-
-void GPIO_Configuration(void)
-{
-  SysCtrl_PeripheralClockCmd(CLOCK_PERIPH_GPIO, ENABLE);
-
-  GPIO_InitType       gpio_init;
-
-  // DIO14 LED
-  gpio_init.GPIO_Mode     = GPIO_Output;
-  gpio_init.GPIO_Pull     = DISABLE;
-  gpio_init.GPIO_HighPwr  = DISABLE;
-  gpio_init.GPIO_Pin      = GPIO_Pin_14;
-
-  GPIO_Init(&gpio_init);
-}
 
 /*** EOF ***/

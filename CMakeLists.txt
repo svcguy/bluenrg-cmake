@@ -1,28 +1,31 @@
 cmake_minimum_required(VERSION 3.22)
 
-set(CMAKE_TOOLCHAIN_FILE ${CMAKE_CURRENT_SOURCE_DIR}/cmake/bluenrg-gcc.cmake)
+set(CMAKE_TOOLCHAIN_FILE ${CMAKE_CURRENT_SOURCE_DIR}/cmake/bluenrglp-gcc.cmake)
 
 set(PROJECT_COMPILE_DEFINITIONS
-    BLUENRG2_DEVICE
-    HS_SPEED_XTAL=HS_SPEED_XTAL_32MHZ 
-    LS_SOURCE=LS_SOURCE_INTERNAL_RO
-    SMPS_INDUCTOR=SMPS_INDUCTOR_NONE
+    USE_FULL_LL_DRIVER
+    STEVAL_IDB011V1
+    CONFIG_DEVICE_BLUENRG_LP
+    CONFIG_HW_SMPS_10uH
+    CONFIG_HW_HSE_TUNE=32
+    CONFIG_HW_LS_XTAL
     )
 
-set(PROJECT_LINKER_SCRIPT ${CMAKE_CURRENT_SOURCE_DIR}/ld/BlueNRG2.ld)
+set(PROJECT_LINKER_SCRIPT ${CMAKE_CURRENT_SOURCE_DIR}/ld/BlueNRG_LP.ld)
 
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/cmake)
-find_package(BlueNRG REQUIRED)
+find_package(BlueNRGLP REQUIRED)
 
 project(bluenrg-cmake
     VERSION 0.0.1
-    DESCRIPTION "A template for the BlueNRG1(2) with GNU ARM and CMake"
+    DESCRIPTION "A template for the BlueNRG-LP(S) with GNU ARM and CMake"
     LANGUAGES C ASM)
 
 add_executable(${CMAKE_PROJECT_NAME}
     src/main.c
     src/syscalls.c
-    src/BlueNRG1_it.c
+    #src/rf_device_hal_msp.c
+    src/rf_device_it.c
     )
 
 target_compile_definitions(${CMAKE_PROJECT_NAME}
@@ -37,7 +40,7 @@ target_include_directories(${CMAKE_PROJECT_NAME}
 
 target_link_libraries(${CMAKE_PROJECT_NAME} 
     PUBLIC
-        bluenrg_periph
+        bluenrglp_periph_ll
     )
 
 target_link_options(${CMAKE_PROJECT_NAME}
